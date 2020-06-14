@@ -6,7 +6,7 @@ import {
   Button,
   Typography
 } from "@material-ui/core";
-import TaskListContainer from "./taskListContainer";
+import TaskListContainer from "./tasks/taskListContainer";
 import PostListContainer from "./postListContainer";
 import NotesListContainer from "./notes/notesListContainer";
 import {
@@ -62,10 +62,10 @@ export default function Homepage() {
         <Button onClick={() => updateName()}>UPDATE NAME</Button>
         <Box className={classes.objectsWrapper}>
           <Box className={classes.objectListContainer}>
-            <NotesListContainer />
+            <TaskListContainer />
           </Box>
           <Box className={classes.objectListContainer}>
-            <TaskListContainer />
+            <NotesListContainer />
           </Box>
           <Box className={classes.objectListContainer}>
             <PostListContainer />
