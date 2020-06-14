@@ -1,6 +1,9 @@
 import React, { useEffect, ReactNode } from "react";
 import { getBoard } from "../integration/boardStore";
 import { Board } from "../domain/board";
+import { Task } from "../domain/objects/subObjects/task/task";
+import { Post } from "../domain/objects/subObjects/post";
+import { Note } from "../domain/objects/subObjects/note";
 
 type BoardState = Board;
 
@@ -56,7 +59,10 @@ export function useBoard() {
 
 type BoardAction =
   | { key: "set board"; payload: Board }
-  | { key: "update board"; payload: { key: keyof Board; payload: any } };
+  | { key: "update board"; payload: { key: keyof Board; payload: any } }
+  | { key: "create task"; payload: { task: Task } }
+  | { key: "create post"; payload: { post: Post } }
+  | { key: "create note"; payload: { note: Note } }
 
 export type BoardDispatch = (action: BoardAction) => void;
 
@@ -66,5 +72,26 @@ function boardReducer(state: BoardState, action: BoardAction): Board {
       return action.payload;
     case "update board":
       return { ...state, [action.payload.key]: action.payload.payload }
+    case 'create task':
+      return createTask(state, action.payload.task);
+    case 'create post':
+      return createPost(state, action.payload.post);
+    case 'create note':
+      return createNote(state, action.payload.note);
   }
+}
+
+function createTask(board: Board, createTask: Task) {
+  let boardNotes: Task[] = [...board.tasks, createTask]
+  return { ...board, tasks: boardNotes }
+}
+
+function createPost(board: Board, createPost: Post) {
+  let boardPosts: Post[] = [...board.posts, createPost]
+  return { ...board, posts: boardPosts }
+}
+
+function createNote(board: Board, createNote: Note) {
+  let boardNotes: Note[] = [...board.notes, createNote]
+  return { ...board, notes: boardNotes }
 }

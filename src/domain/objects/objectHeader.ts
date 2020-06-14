@@ -12,6 +12,4 @@ export interface ObjectHeader {
   content: string;
 
   objectType: ObjectType;
-
-  subObjectDisplayValue?: string;
 }

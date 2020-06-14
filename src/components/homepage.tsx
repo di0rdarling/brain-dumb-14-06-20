@@ -3,11 +3,12 @@ import {
   Box,
   makeStyles,
   TextField,
-  Button
+  Button,
+  Typography
 } from "@material-ui/core";
-import TaskContainer from "./taskContainer";
-import PostContainer from "./postContainer";
-import NoteContainer from "./noteContainer";
+import TaskListContainer from "./taskListContainer";
+import PostListContainer from "./postListContainer";
+import NoteListContainer from "./noteListContainer";
 import {
   useBoardState,
   useBoardDispatch,
@@ -16,8 +17,15 @@ import {
 import { Board } from "../domain/board";
 
 const useStyles = makeStyles({
+  boardHeader: {
+    textAlign: 'center',
+    margin: '16px 0px'
+  },
   objectsWrapper: {
-    display: 'flex'
+    display: 'flex',
+  },
+  objectListContainer: {
+    maxWidth: '33%'
   }
 });
 
@@ -44,16 +52,24 @@ export default function Homepage() {
   if (board.boardName) {
     return (
       <Box>
-        <h1>{board.boardName}</h1>
+        <Box className={classes.boardHeader}>
+          <Typography variant='h2'>{board.boardName}</Typography>
+          <Typography>Created by {board.boardCreatedByUser}</Typography>
+        </Box>
         <TextField
           onChange={handleBoardNameInputChange}
         />
         <Button onClick={() => updateName()}>UPDATE NAME</Button>
-        <h2>{board.boardCreatedByUser}</h2>
         <Box className={classes.objectsWrapper}>
-          <NoteContainer />
-          <TaskContainer />
-          <PostContainer />
+          <Box className={classes.objectListContainer}>
+            <NoteListContainer />
+          </Box>
+          <Box className={classes.objectListContainer}>
+            <TaskListContainer />
+          </Box>
+          <Box className={classes.objectListContainer}>
+            <PostListContainer />
+          </Box>
         </Box>
       </Box>
     );
