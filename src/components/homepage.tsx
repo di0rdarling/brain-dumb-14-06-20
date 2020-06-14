@@ -61,14 +61,6 @@ export default function Homepage() {
       <Box>
         <h1>{board.boardName}</h1>
         <h2>{board.boardCreatedByUser}</h2>
-        {/* <FormControl className={classes.formControl}>
-          <InputLabel>Object type</InputLabel>
-          <Select value={board.subObjectType} onChange={handleSubTypeChange}>
-            {Object.keys(SubObjectTypes).map(sot => (
-              <MenuItem value={sot}>{sot}</MenuItem>
-            ))}
-          </Select>
-        </FormControl> */}
         <NoteContainer />
         <TaskContainer />
         <PostContainer />
