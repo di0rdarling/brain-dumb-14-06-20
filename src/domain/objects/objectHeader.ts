@@ -5,9 +5,9 @@ import { ObjectType } from "./subObjects/objectType";
 export interface ObjectHeader {
   id: number;
 
-  createdAuthor: string;
+  createdDateTime: string,
 
-  modifiedAuthor?: string;
+  createdAuthor: string;
 
   content: string;
 

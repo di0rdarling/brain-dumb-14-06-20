@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useTaskListState } from "../context/taskContext";
 import { Box, Typography, TextField, Button, makeStyles, Paper } from "@material-ui/core";
 import { Task } from "../domain/objects/subObjects/task/task";
@@ -11,18 +11,24 @@ const useStyles = makeStyles({
     padding: 8,
     margin: 8
   },
+  header: {
+    textAlign: 'center',
+    margin: '16px 0px',
+    height: 32
+  },
   containerHeader: {
     margin: '8px 0px'
   },
   taskContainer: {
     margin: '8px 0px',
-    border: 'solid thin black'
-
+    border: 'solid thin black',
+    padding: '8px'
   }
 })
 
 export default function TaskListContainer() {
   let classes = useStyles()
+  let [creatingTask, setCreatingTask] = useState<boolean>(false)
   let tasks: Task[] = useTaskListState();
   let boardDispatch = useBoardDispatch()
   let newTask = '';
@@ -36,6 +42,7 @@ export default function TaskListContainer() {
     let task: Task = {
       id: 3,
       createdAuthor: 'test created author',
+      createdDateTime: new Date().toISOString(),
       tag: newTask,
       objectType: ObjectType.TASK,
       content: 'this is created task content.'
@@ -48,9 +55,18 @@ export default function TaskListContainer() {
 
   return (
     <Box className={classes.root} component={Paper}>
-      <Typography className={classes.containerHeader} variant='h5'>Tasks</Typography>
-      <TextField onChange={handNewTaskInput} />
-      <Button onClick={() => createTask()}>CREATE</Button>
+      <Box className={classes.header}>
+        <Typography variant='h5'>Tasks</Typography>
+      </Box>
+      {!creatingTask ? (
+        <Button onClick={() => setCreatingTask(true)}>Create task</Button>
+      ) : (
+          <Box>
+            <TextField onChange={handNewTaskInput} />
+            <Button onClick={() => createTask()}>CREATE</Button>
+          </Box>
+        )}
+
       {tasks && (
         <Box>
           {tasks.map(task => (

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { usePostListState } from "../context/postListContext";
 import { Box, Typography, TextField, Button, makeStyles, Paper } from "@material-ui/core";
 import { Post } from "../domain/objects/subObjects/post";
@@ -8,10 +8,12 @@ import { useBoardDispatch } from "../context/boardContext";
 const useStyles = makeStyles({
   root: {
     padding: 8,
-    margin: 8
+    margin: 8,
   },
-  containerHeader: {
-    margin: '8px 0px'
+  header: {
+    textAlign: 'center',
+    margin: '16px 0px',
+    height: 32
   },
   postContainer: {
     margin: '8px 0px',
@@ -22,6 +24,7 @@ const useStyles = makeStyles({
 
 export default function PostListContainer() {
   let classes = useStyles();
+  let [creatingPost, setCreatingPost] = useState<boolean>()
   let posts: Post[] = usePostListState();
   let boardDispatch = useBoardDispatch()
   let newPostTitle = '';
@@ -35,6 +38,7 @@ export default function PostListContainer() {
     let post: Post = {
       id: 3,
       createdAuthor: 'test created author',
+      createdDateTime: new Date().toISOString(),
       postTitle: newPostTitle,
       objectType: ObjectType.POST,
       content: 'this is created post content.'
@@ -47,9 +51,17 @@ export default function PostListContainer() {
 
   return (
     <Box className={classes.root} component={Paper}>
-      <Typography className={classes.containerHeader} variant='h5'>Posts</Typography>
-      <TextField onChange={handleNewPostInput} />
-      <Button onClick={() => createPost()}>CREATE</Button>
+      <Box className={classes.header}>
+        <Typography variant='h5'>Posts</Typography>
+      </Box>
+      {!creatingPost ? (
+        <Button onClick={() => setCreatingPost(true)}>Create post</Button>
+      ) : (
+          <Box>
+            <TextField onChange={handleNewPostInput} />
+            <Button onClick={() => createPost()}>CREATE</Button>
+          </Box>
+        )}
       {posts && (
         <Box>
           {posts.map(post => (

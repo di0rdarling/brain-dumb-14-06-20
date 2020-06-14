@@ -61,8 +61,10 @@ type BoardAction =
   | { key: "set board"; payload: Board }
   | { key: "update board"; payload: { key: keyof Board; payload: any } }
   | { key: "create task"; payload: { task: Task } }
+  | { key: "update task"; payload: { task: Task } }
   | { key: "create post"; payload: { post: Post } }
   | { key: "create note"; payload: { note: Note } }
+  | { key: "update note"; payload: { note: Note } }
 
 export type BoardDispatch = (action: BoardAction) => void;
 
@@ -78,8 +80,13 @@ function boardReducer(state: BoardState, action: BoardAction): Board {
       return createPost(state, action.payload.post);
     case 'create note':
       return createNote(state, action.payload.note);
+    case 'update note':
+      return updateNote(state, action.payload.note);
+    default:
+      return state;
   }
 }
+
 
 function createTask(board: Board, createTask: Task) {
   let boardNotes: Task[] = [...board.tasks, createTask]
@@ -94,4 +101,11 @@ function createPost(board: Board, createPost: Post) {
 function createNote(board: Board, createNote: Note) {
   let boardNotes: Note[] = [...board.notes, createNote]
   return { ...board, notes: boardNotes }
+}
+
+function updateNote(board: Board, editedNote: Note) {
+  let index = board.notes.findIndex(note => note.id === editedNote.id)
+  board.notes.splice(index, 1);
+  board.notes.push(editedNote);
+  return board;
 }

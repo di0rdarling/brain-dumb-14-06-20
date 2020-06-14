@@ -8,7 +8,7 @@ import {
 } from "@material-ui/core";
 import TaskListContainer from "./taskListContainer";
 import PostListContainer from "./postListContainer";
-import NoteListContainer from "./noteListContainer";
+import NotesListContainer from "./notes/notesListContainer";
 import {
   useBoardState,
   useBoardDispatch,
@@ -25,7 +25,7 @@ const useStyles = makeStyles({
     display: 'flex',
   },
   objectListContainer: {
-    maxWidth: '33%'
+    minWidth: '33%'
   }
 });
 
@@ -62,7 +62,7 @@ export default function Homepage() {
         <Button onClick={() => updateName()}>UPDATE NAME</Button>
         <Box className={classes.objectsWrapper}>
           <Box className={classes.objectListContainer}>
-            <NoteListContainer />
+            <NotesListContainer />
           </Box>
           <Box className={classes.objectListContainer}>
             <TaskListContainer />

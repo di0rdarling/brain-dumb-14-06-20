@@ -9,22 +9,22 @@ export function getBoard(): Board {
     notes: [{
       id: 1,
       createdAuthor: faker.name.findName(),
-      modifiedAuthor: faker.name.findName(),
+      createdDateTime: faker.date.past(),
       content: faker.lorem.sentence(),
-      additionalNotes: faker.lorem.sentence(),
+      associatedLinks: [faker.lorem.sentence()],
       objectType: ObjectType.NOTE
     }, {
       id: 2,
       createdAuthor: faker.name.findName(),
-      modifiedAuthor: faker.name.findName(),
+      createdDateTime: faker.date.past(),
       content: faker.lorem.sentence(),
-      additionalNotes: faker.lorem.sentence(),
+      associatedLinks: [faker.lorem.sentence()],
       objectType: ObjectType.NOTE
     }],
     tasks: [{
       id: 1,
       createdAuthor: faker.name.findName(),
-      modifiedAuthor: faker.name.findName(),
+      createdDateTime: faker.date.past(),
       content: faker.lorem.sentence(),
       tag: faker.lorem.word(),
       taskLinks: [
@@ -37,7 +37,7 @@ export function getBoard(): Board {
     }, {
       id: 2,
       createdAuthor: faker.name.findName(),
-      modifiedAuthor: faker.name.findName(),
+      createdDateTime: faker.date.past(),
       content: faker.lorem.sentence(),
       tag: faker.lorem.word(),
       taskLinks: [
@@ -51,14 +51,14 @@ export function getBoard(): Board {
     posts: [{
       id: 1,
       createdAuthor: faker.name.findName(),
-      modifiedAuthor: faker.name.findName(),
+      createdDateTime: faker.date.past(),
       content: faker.lorem.sentence(),
       postTitle: faker.lorem.word(),
       objectType: ObjectType.POST
     }, {
       id: 2,
       createdAuthor: faker.name.findName(),
-      modifiedAuthor: faker.name.findName(),
+      createdDateTime: faker.date.past(),
       content: faker.lorem.sentence(),
       postTitle: faker.lorem.word(),
       objectType: ObjectType.POST
