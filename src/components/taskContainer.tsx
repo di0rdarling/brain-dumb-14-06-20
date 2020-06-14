@@ -1,18 +1,28 @@
 import React from "react";
-import { useTaskState } from "../context/taskContext";
+import { useTaskListState } from "../context/taskContext";
 import { Box, Typography } from "@material-ui/core";
+import { Task } from "../domain/objects/subObjects/task/task";
 
 export default function TaskContainer() {
-  let task = useTaskState();
+  let tasks: Task[] = useTaskListState();
 
   return (
     <Box>
-      <Typography>{task.subObjectDisplayValue}</Typography>
-      <Typography>Tag: {task.tag}</Typography>
-      {task.taskLinks && (
+      {tasks && (
         <Box>
-          <Typography>Task: {task.taskLinks[0].task}</Typography>
-          <Typography>Task link: {task.taskLinks[0].taskContent}</Typography>
+          {tasks.map(task => (
+            <Box>
+              <Typography>{task.subObjectDisplayValue}</Typography>
+              <Typography>Tag: {task.tag}</Typography>
+              {task.taskLinks && (
+                <Box>
+                  <Typography>Task: {task.taskLinks[0].task}</Typography>
+                  <Typography>Task link: {task.taskLinks[0].taskContent}</Typography>
+                </Box>
+              )}
+            </Box>
+
+          ))}
         </Box>
       )}
     </Box>

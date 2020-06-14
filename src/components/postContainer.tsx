@@ -1,14 +1,23 @@
 import React from "react";
-import { usePostState } from "../context/postContext";
+import { usePostListState } from "../context/postListContext";
 import { Box, Typography } from "@material-ui/core";
+import { Post } from "../domain/objects/subObjects/post";
 
 export default function PostContainer() {
-  let post = usePostState();
+  let posts: Post[] = usePostListState();
 
   return (
     <Box>
-      <Typography>{post.subObjectDisplayValue}</Typography>
-      <Typography>Post title: {post.postTitle}</Typography>
+      {posts && (
+        <Box>
+          {posts.map(post => (
+            <Box>
+              <Typography>{post.subObjectDisplayValue}</Typography>
+              <Typography>Post title: {post.postTitle}</Typography>
+            </Box>
+          ))}
+        </Box>
+      )}
     </Box>
   );
 }

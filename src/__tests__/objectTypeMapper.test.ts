@@ -1,6 +1,6 @@
-import ObjectTypeMapper from '../domain/mappers/objectTypeMapper';
 import { ObjectType } from '../domain/objects/subObjects/objectType';
 import { ObjectTypeDisplayValue } from '../domain/objects/displayValues/objectTypeDisplayValue';
+import ObjectTypeMapper from '../mappers/objectTypeMapper';
 
 describe('Tests the Object Type Mapper Class', () => {
     it('Correctly maps a Note Object Type to a Note Object Type display value. ', () => {

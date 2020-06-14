@@ -3,22 +3,22 @@ import { Box } from "@material-ui/core";
 import { Board } from "../domain/board";
 import { useBoardState } from "./boardContext";
 import TaskProvider from "./taskContext";
-import NoteProvider from "./noteContext";
-import PostProvider from "./postContext";
+import NotesListProvider from "./notesListContext";
+import PostListProvider from "./postListContext";
 
 interface GlobalBoardProviderProps {
   children: ReactElement;
 }
 export default function GlobalBoardProvider(props: GlobalBoardProviderProps) {
-  let board: Board = useBoardState();;
+  let board: Board = useBoardState();
 
   return (
     <Box>
       {board && (
         <TaskProvider board={board}>
-          <NoteProvider board={board}>
-            <PostProvider board={board}>{props.children}</PostProvider>
-          </NoteProvider>
+          <NotesListProvider board={board}>
+            <PostListProvider board={board}>{props.children}</PostListProvider>
+          </NotesListProvider>
         </TaskProvider>
       )}
     </Box>

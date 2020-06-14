@@ -1,5 +1,5 @@
-import { ObjectType } from "../objects/subObjects/objectType";
-import { ObjectTypeDisplayValue } from "../objects/displayValues/objectTypeDisplayValue";
+import { ObjectType } from "../domain/objects/subObjects/objectType";
+import { ObjectTypeDisplayValue } from "../domain/objects/displayValues/objectTypeDisplayValue";
 
 export default class ObjectTypeMapper {
   static getObjectTypeDisplayValue(objectType: ObjectType) {

@@ -1,45 +1,44 @@
 import React, { useEffect, ReactNode } from "react";
 import { Task } from "../domain/objects/subObjects/task/task";
-import BoardMapper from "../domain/mappers/boardMapper";
 import { Board } from "../domain/board";
 
-type TaskState = Task;
-const TaskStateContext = React.createContext<TaskState | undefined>(undefined);
+type TaskListState = Task[];
+const TaskListStateContext = React.createContext<TaskListState | undefined>(undefined);
 const TaskDispatchContext = React.createContext<TaskDispatch | undefined>(
   undefined
 );
-interface TaskProviderProps {
+interface TaskListProviderProps {
   board: Board;
   children: ReactNode;
 }
 
-export default function TaskProvider(props: TaskProviderProps) {
-  const [taskState, dispatch] = React.useReducer(tasksReducer, {} as Task);
+export default function TaskListProvider(props: TaskListProviderProps) {
+  const [taskListState, dispatch] = React.useReducer(taskListReducer, []);
 
   let { board, children } = props;
   useEffect(() => {
     if (board.boardName) {
-      let task: Task = BoardMapper.mapToTaskModel(board);
+      let taskList: Task[] = board.tasks;
       dispatch({
-        key: "set task",
-        payload: task
+        key: "set tasks",
+        payload: taskList
       });
     }
   }, [board]);
 
   return (
-    <TaskStateContext.Provider value={taskState}>
+    <TaskListStateContext.Provider value={taskListState}>
       <TaskDispatchContext.Provider value={dispatch}>
         {children}
       </TaskDispatchContext.Provider>
-    </TaskStateContext.Provider>
+    </TaskListStateContext.Provider>
   );
 }
 
-export function useTaskState() {
-  const context = React.useContext(TaskStateContext);
+export function useTaskListState() {
+  const context = React.useContext(TaskListStateContext);
   if (context === undefined) {
-    throw new Error("useTaskState must be used within a TaskProvider");
+    throw new Error("useTaskListState must be used within a TaskListProvider");
   }
   return context;
 }
@@ -52,17 +51,29 @@ export function useTaskDispatch() {
   return context;
 }
 
-type TaskAction =
-  | { key: "set task"; payload: Task }
-  | { key: "update task"; payload: { key: keyof Task; payload: any } };
+type TaskListAction =
+  | { key: "set tasks"; payload: Task[] }
+  | { key: "update tasks"; payload: Task[] }
+  | { key: "update task"; payload: { taskId: number; key: keyof Task; value: any } };
 
-type TaskDispatch = (action: TaskAction) => void;
+type TaskDispatch = (action: TaskListAction) => void;
 
-function tasksReducer(state: TaskState, action: TaskAction): Task {
+function taskListReducer(state: TaskListState, action: TaskListAction): Task[] {
   switch (action.key) {
-    case "set task":
+    case "set tasks":
+      return action.payload;
+    case "update tasks":
       return action.payload;
     case "update task":
-      return { ...state, [action.payload.key]: action.payload.payload };
+      return updateTask(state, action.payload.taskId, action.payload.key, action.payload.value)
   }
+}
+
+function updateTask(state: TaskListState, id: number, key: keyof Task, value: any) {
+
+  let index = state.findIndex(task => task.id === id)
+  let task = state[index];
+  let updatedTask = { ...task, [key]: value }
+  state.splice(index, 1);
+  return [...state, updatedTask];
 }
