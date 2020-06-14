@@ -10,13 +10,7 @@ interface GlobalBoardProviderProps {
   children: ReactElement;
 }
 export default function GlobalBoardProvider(props: GlobalBoardProviderProps) {
-  let board: Board;
-
-  try {
-    board = useBoardState();
-  } catch {
-    return null;
-  }
+  let board: Board = useBoardState();;
 
   return (
     <Box>

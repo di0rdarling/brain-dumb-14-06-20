@@ -1,11 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
-  FormControl,
-  InputLabel,
-  Select,
   Box,
-  MenuItem,
-  makeStyles
+  makeStyles,
+  TextField,
+  Button
 } from "@material-ui/core";
 import TaskContainer from "./taskContainer";
 import PostContainer from "./postContainer";
@@ -16,54 +14,47 @@ import {
   BoardDispatch
 } from "../context/boardContext";
 import { Board } from "../domain/board";
-import TaskProvider from "../context/taskContext";
-import PostProvider from "../context/postContext";
-import { ObjectType } from "../domain/objects/subObjects/objectType";
 
 const useStyles = makeStyles({
-  formControl: {
-    margin: 16,
-    minWidth: 120
+  objectsWrapper: {
+    display: 'flex'
   }
 });
 
 export default function Homepage() {
-  let board: Board;
-  let boardDispatch: BoardDispatch;
   let classes = useStyles();
+  let board: Board = useBoardState()
+  let boardDispatch: BoardDispatch = useBoardDispatch()
+  let boardName = '';
 
-  try {
-    board = useBoardState();
-  } catch {
-    return null;
+  const handleBoardNameInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    boardName = event.target.value
   }
 
-  try {
-    boardDispatch = useBoardDispatch();
-  } catch {
-    return null;
+  const updateName = () => {
+    boardDispatch({
+      key: 'update board',
+      payload: {
+        key: 'boardName',
+        payload: boardName
+      }
+    })
   }
-
-  const handleSubTypeChange = (
-    event: React.ChangeEvent<{ value: unknown }>
-  ) => {
-    // boardDispatch({
-    //   key: "update board",
-    //   payload: {
-    //     key: "subObjectType",
-    //     payload: event.target.value as SubObjectTypes
-    //   }
-    // });
-  };
 
   if (board.boardName) {
     return (
       <Box>
         <h1>{board.boardName}</h1>
+        <TextField
+          onChange={handleBoardNameInputChange}
+        />
+        <Button onClick={() => updateName()}>UPDATE NAME</Button>
         <h2>{board.boardCreatedByUser}</h2>
-        <NoteContainer />
-        <TaskContainer />
-        <PostContainer />
+        <Box className={classes.objectsWrapper}>
+          <NoteContainer />
+          <TaskContainer />
+          <PostContainer />
+        </Box>
       </Box>
     );
   } else {

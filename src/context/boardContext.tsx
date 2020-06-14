@@ -19,7 +19,6 @@ export default function BoardProvider(props: BoardProviderProps) {
   let { children } = props;
   useEffect(() => {
     let board: Board = getBoard();
-    console.log(board);
     dispatch({
       key: "set board",
       payload: board
@@ -66,8 +65,6 @@ function boardReducer(state: BoardState, action: BoardAction): Board {
     case "set board":
       return action.payload;
     case "update board":
-      let newState = state;
-      // newState.subObjectType = action.payload.payload;
-      return newState;
+      return { ...state, [action.payload.key]: action.payload.payload }
   }
 }
