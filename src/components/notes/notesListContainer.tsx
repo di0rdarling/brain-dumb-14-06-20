@@ -40,12 +40,14 @@ export default function NotesListContainer() {
       createdAuthor: 'test created author',
       createdDateTime: new Date().toISOString(),
       associatedLinks: [link],
-      objectType: ObjectType.TASK,
       content: 'this is created note content.'
     }
     boardDispatch({
-      key: 'create note',
-      payload: { note }
+      key: 'create object',
+      payload: {
+        objectType: ObjectType.NOTE,
+        object: note
+      }
     })
     setCreatingNote(false)
   }

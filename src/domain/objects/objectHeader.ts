@@ -1,4 +1,5 @@
-import { ObjectType } from "./subObjects/objectType";
+import { Tag } from './tag';
+
 /**
  * The header of the object.
  */
@@ -11,5 +12,5 @@ export interface ObjectHeader {
 
   content: string;
 
-  objectType: ObjectType;
+  tags?: Tag[]
 }

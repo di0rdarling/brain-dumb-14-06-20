@@ -3,8 +3,8 @@ import { useTaskListState } from "../../context/taskContext";
 import { Box, Typography, TextField, Button, makeStyles, Paper } from "@material-ui/core";
 import { Task } from "../../domain/objects/subObjects/task/task";
 import { useBoardDispatch } from "../../context/boardContext";
-import { ObjectType } from "../../domain/objects/subObjects/objectType";
 import TaskContainer from './taskContainer';
+import { ObjectType } from "../../domain/objects/subObjects/objectType";
 
 const useStyles = makeStyles({
   root: {
@@ -35,13 +35,14 @@ export default function TaskListContainer() {
       id: 3,
       createdAuthor: 'test created author',
       createdDateTime: new Date().toISOString(),
-      tag: newTask,
-      objectType: ObjectType.TASK,
       content: 'this is created task content.'
     }
     boardDispatch({
-      key: 'create task',
-      payload: { task }
+      key: 'create object',
+      payload: {
+        objectType: ObjectType.TASK,
+        object: task
+      }
     })
   }
 

@@ -12,41 +12,43 @@ export function getBoard(): Board {
       createdDateTime: faker.date.past(),
       content: faker.lorem.sentence(),
       associatedLinks: [faker.lorem.sentence()],
-      objectType: ObjectType.NOTE
+      tags: [{
+        name: faker.lorem.word(),
+        colour: '#06D6A0'
+      }]
     }, {
       id: 2,
       createdAuthor: faker.name.findName(),
       createdDateTime: faker.date.past(),
       content: faker.lorem.sentence(),
       associatedLinks: [faker.lorem.sentence()],
-      objectType: ObjectType.NOTE
     }],
     tasks: [{
       id: 1,
       createdAuthor: faker.name.findName(),
       createdDateTime: faker.date.past(),
       content: faker.lorem.sentence(),
-      tag: faker.lorem.word(),
       taskLinks: [
         {
           task: faker.lorem.sentence(),
           taskContent: faker.lorem.sentence()
         }
       ],
-      objectType: ObjectType.TASK
+      tags: [{
+        name: faker.lorem.word(),
+        colour: '#FFD166'
+      }]
     }, {
       id: 2,
       createdAuthor: faker.name.findName(),
       createdDateTime: faker.date.past(),
       content: faker.lorem.sentence(),
-      tag: faker.lorem.word(),
       taskLinks: [
         {
           task: faker.lorem.sentence(),
           taskContent: faker.lorem.sentence()
         }
       ],
-      objectType: ObjectType.TASK
     }],
     posts: [{
       id: 1,
@@ -54,14 +56,12 @@ export function getBoard(): Board {
       createdDateTime: faker.date.past(),
       content: faker.lorem.sentence(),
       postTitle: faker.lorem.word(),
-      objectType: ObjectType.POST
     }, {
       id: 2,
       createdAuthor: faker.name.findName(),
       createdDateTime: faker.date.past(),
       content: faker.lorem.sentence(),
       postTitle: faker.lorem.word(),
-      objectType: ObjectType.POST
     }]
   };
 

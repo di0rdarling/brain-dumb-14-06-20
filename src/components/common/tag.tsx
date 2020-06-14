@@ -15,7 +15,7 @@ interface TagProps {
     colour?: string,
 }
 
-const TagWrapper = styled.div<TagProps>`
+const Box = styled.div<TagProps>`
   background: ${props => props.colour};
   border-radius: 20px;
   color: white;
@@ -25,15 +25,15 @@ const TagWrapper = styled.div<TagProps>`
   height: 20px;
 `;
 
-export default function Tag(props: TagProps) {
+export default function TagWrapper(props: TagProps) {
 
     let classes = useStyles();
     let { text, colour } = props;
     return (
-        <TagWrapper colour='#06D6A0'>
+        <Box colour={colour || '#06D6A0'}>
             <TagIcon fontSize='inherit' className={classes.tagIcon} />
             <Typography>{text}</Typography>
-        </TagWrapper>
+        </Box>
 
     )
 }

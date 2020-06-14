@@ -40,12 +40,14 @@ export default function PostListContainer() {
       createdAuthor: 'test created author',
       createdDateTime: new Date().toISOString(),
       postTitle: newPostTitle,
-      objectType: ObjectType.POST,
       content: 'this is created post content.'
     }
     boardDispatch({
-      key: 'create post',
-      payload: { post }
+      key: 'create object',
+      payload: {
+        objectType: ObjectType.POST,
+        object: post
+      }
     })
   }
 

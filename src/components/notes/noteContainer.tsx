@@ -88,21 +88,20 @@ export default function NoteContainer(props: NoteContainerProps) {
     }
 
     const updateNote = (event: React.KeyboardEvent<HTMLDivElement>) => {
-        if (event.keyCode === 13) {
-            boardDispatch({
-                key: 'update note',
-                payload: { note: noteEdit }
-            })
-            setState({ ...state, editingNote: false })
-        }
+        // if (event.keyCode === 13) {
+        //     boardDispatch({
+        //         key: 'update note',
+        //         payload: { note: noteEdit }
+        //     })
+        //     setState({ ...state, editingNote: false })
+        // }
     }
 
     const addLink = () => {
-        // note.associatedLinks = [...note.associatedLinks, link];
-        boardDispatch({
-            key: 'update note',
-            payload: { note }
-        })
+        // boardDispatch({
+        //     key: 'update note',
+        //     payload: { note }
+        // })
         setState({ ...state, addingLink: false })
     }
 
@@ -154,7 +153,7 @@ export default function NoteContainer(props: NoteContainerProps) {
                 <Box className={classes.footerButtonContainer}>
                     <Tooltip title='View links'>
                         <Badge
-                            badgeContent={note.associatedLinks.length}
+                            badgeContent={0}
                             color='primary'
                             anchorOrigin={{
                                 vertical: 'bottom',
@@ -183,7 +182,7 @@ export default function NoteContainer(props: NoteContainerProps) {
                                 <CloseIcon onClick={() => setState({ ...state, modalOpen: false })} />
                             </IconButton>
                         </Box>
-                        {note.associatedLinks.map((link, index) => (
+                        {note.associatedLinks && note.associatedLinks.map((link, index) => (
                             <Typography>Link {index}: {link} </Typography>
                         ))}
                     </Paper>

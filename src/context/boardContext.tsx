@@ -4,6 +4,9 @@ import { Board } from "../domain/board";
 import { Task } from "../domain/objects/subObjects/task/task";
 import { Post } from "../domain/objects/subObjects/post";
 import { Note } from "../domain/objects/subObjects/note";
+import { ObjectType } from "../domain/objects/subObjects/objectType";
+import { Tag } from "../domain/objects/tag";
+import TaskContainer from "../components/tasks/taskContainer";
 
 type BoardState = Board;
 
@@ -60,47 +63,79 @@ export function useBoard() {
 type BoardAction =
   | { key: "set board"; payload: Board }
   | { key: "update board"; payload: { key: keyof Board; payload: any } }
-  | { key: "create task"; payload: { task: Task } }
-  | { key: "update task"; payload: { task: Task } }
-  | { key: "create post"; payload: { post: Post } }
-  | { key: "create note"; payload: { note: Note } }
-  | { key: "update note"; payload: { note: Note } }
+  | { key: "create object"; payload: { objectType: ObjectType; object: any } }
+  | { key: "add tag"; payload: { objectType: ObjectType; objectId: number; tag: Tag } }
 
 export type BoardDispatch = (action: BoardAction) => void;
 
 function boardReducer(state: BoardState, action: BoardAction): Board {
+
   switch (action.key) {
     case "set board":
       return action.payload;
     case "update board":
       return { ...state, [action.payload.key]: action.payload.payload }
-    case 'create task':
-      return createTask(state, action.payload.task);
-    case 'create post':
-      return createPost(state, action.payload.post);
-    case 'create note':
-      return createNote(state, action.payload.note);
-    case 'update note':
-      return updateNote(state, action.payload.note);
+    case 'create object':
+      return createObject(state, action.payload.objectType, action.payload.object);
+    case 'add tag':
+      return addTagToObject(state, action.payload.objectType, action.payload.objectId, action.payload.tag)
     default:
       return state;
   }
 }
 
 
-function createTask(board: Board, createTask: Task) {
-  let boardNotes: Task[] = [...board.tasks, createTask]
-  return { ...board, tasks: boardNotes }
+function createObject(board: Board, objectType: ObjectType, object: any) {
+
+  switch (objectType) {
+    case ObjectType.TASK:
+      let boardNotes: Task[] = [...board.tasks, object]
+      return { ...board, tasks: boardNotes }
+    case ObjectType.NOTE:
+      let boardTasks: Note[] = [...board.notes, object]
+      return { ...board, notes: boardTasks }
+    case ObjectType.POST:
+      let boardPosts: Post[] = [...board.posts, object]
+      return { ...board, posts: boardPosts }
+  }
 }
 
-function createPost(board: Board, createPost: Post) {
-  let boardPosts: Post[] = [...board.posts, createPost]
-  return { ...board, posts: boardPosts }
-}
+function addTagToObject(board: Board, objectType: ObjectType, objectId: number, tag: Tag) {
+  switch (objectType) {
+    case ObjectType.TASK:
+      board.tasks.map(task => {
+        if (task.id === objectId) {
+          task.tags ?
+            task.tags = [...task.tags, tag]
+            :
+            task.tags = [tag];
+        }
+      })
+      return board
+    case ObjectType.POST:
+      board.posts.map(post => {
+        if (post.id === objectId) {
+          post.tags ?
+            post.tags = [...post.tags, tag]
+            :
+            post.tags = [tag];
+        }
+      })
+      return board
+    case ObjectType.NOTE:
+      board.notes.map(note => {
+        if (note.id === objectId) {
+          note.tags ?
+            note.tags = [...note.tags, tag]
+            :
+            note.tags = [tag];
+        }
+      })
+      return board
 
-function createNote(board: Board, createNote: Note) {
-  let boardNotes: Note[] = [...board.notes, createNote]
-  return { ...board, notes: boardNotes }
+  }
+
+
 }
 
 function updateNote(board: Board, editedNote: Note) {

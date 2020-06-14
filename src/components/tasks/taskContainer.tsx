@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { Task } from "../../domain/objects/subObjects/task/task"
-import { Box, Typography, TextField, Button, makeStyles, Paper } from "@material-ui/core";
-import { useBoardDispatch } from "../../context/boardContext";
+import { Box, Typography, makeStyles } from "@material-ui/core";
 import { convertToReadableDateTime } from '../../utils/dateTimeUtils';
-import Tag from '../common/tag';
+import TagContainer from '../common/tagContainer'
+import { ObjectType } from "../../domain/objects/subObjects/objectType";
 
 const useStyles = makeStyles({
     root: {
@@ -11,7 +11,8 @@ const useStyles = makeStyles({
         borderTop: 'solid #7FD14D',
         border: 'solid thin #9BA7AB',
         padding: '8px 16px'
-    }
+    },
+
 })
 
 interface TaskContainerProps {
@@ -23,19 +24,15 @@ export default function TaskContainer(props: TaskContainerProps) {
     let classes = useStyles();
     let { task } = props;
 
+
+
     return (
         <Box className={classes.root}>
             <Typography variant='overline'>Created on {convertToReadableDateTime(task.createdDateTime)}</Typography>
-            <Typography>Tag: {task.tag}</Typography>
-            {task.taskLinks && (
-                <Box>
-                    <Typography>Task: {task.taskLinks[0].task}</Typography>
-                    <Typography>Task link: {task.taskLinks[0].taskContent}</Typography>
-                </Box>
+            <Typography>{task.content}</Typography>
+            {task.tags && (
+                <TagContainer sourceObjectDetails={{ objectType: ObjectType.TASK, objectId: task.id }} tags={task.tags} />
             )}
-            <Box>
-                <Tag text='maths' />
-            </Box>
         </Box>
     )
 }
