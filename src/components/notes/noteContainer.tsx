@@ -71,10 +71,8 @@ export default function NoteContainer(props: NoteContainerProps) {
         editingNote: false,
         modalOpen: false
     });
-    let boardDispatch: BoardDispatch = useBoardDispatch();
 
     useEffect(() => {
-        console.log("ran")
         note && setNoteEdit(note)
     }, [note])
 

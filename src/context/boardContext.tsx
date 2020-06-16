@@ -111,7 +111,7 @@ function addTagToObject(board: Board, objectType: ObjectType, objectId: number, 
             task.tags = [tag];
         }
       })
-      return board
+      break;
     case ObjectType.POST:
       board.posts.map(post => {
         if (post.id === objectId) {
@@ -121,7 +121,7 @@ function addTagToObject(board: Board, objectType: ObjectType, objectId: number, 
             post.tags = [tag];
         }
       })
-      return board
+      break;
     case ObjectType.NOTE:
       board.notes.map(note => {
         if (note.id === objectId) {
@@ -131,10 +131,11 @@ function addTagToObject(board: Board, objectType: ObjectType, objectId: number, 
             note.tags = [tag];
         }
       })
-      return board
+      break;
 
   }
 
+  return { ...board }
 
 }
 

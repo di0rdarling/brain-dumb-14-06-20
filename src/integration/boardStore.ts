@@ -1,5 +1,4 @@
 import { Board } from "../domain/board";
-import { ObjectType } from "../domain/objects/subObjects/objectType";
 var faker = require("faker");
 
 export function getBoard(): Board {

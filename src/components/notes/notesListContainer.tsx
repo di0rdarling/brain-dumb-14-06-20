@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNoteListState } from "../../context/notesListContext";
-import { Box, Typography, TextField, Button, makeStyles, Paper, IconButton, Tooltip, Modal } from "@material-ui/core";
+import { Box, Typography, TextField, Button, makeStyles, Paper } from "@material-ui/core";
 import { Note } from "../../domain/objects/subObjects/note";
 import { ObjectType } from "../../domain/objects/subObjects/objectType";
 import { useBoardDispatch } from "../../context/boardContext";

@@ -21,7 +21,8 @@ const Box = styled.div<TagProps>`
   color: white;
   display: flex;
   margin: 11px 8px 0px 8px;
-  padding-bottom: 2px;
+  padding-bottom: 3px;
+  padding-right: 9px;
   height: 20px;
 `;
 
