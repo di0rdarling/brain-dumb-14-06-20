@@ -3,10 +3,8 @@ import { Box, Typography, TextField, Button, makeStyles, Paper, IconButton, Tool
 import LinkIcon from '@material-ui/icons/Link';
 import CloseIcon from '@material-ui/icons/Close';
 import AddIcon from '@material-ui/icons/Add';
-import TagIcon from '@material-ui/icons/LocalOffer';
 import EditIcon from '@material-ui/icons/Create';
 import { Note } from "../../domain/objects/subObjects/note";
-import { useBoardDispatch, BoardDispatch } from "../../context/boardContext";
 import { convertToReadableDateTime } from '../../utils/dateTimeUtils';
 import Tag from "../common/tag";
 
@@ -85,7 +83,7 @@ export default function NoteContainer(props: NoteContainerProps) {
         }
     }
 
-    const updateNote = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    const updateNote = () => {
         // if (event.keyCode === 13) {
         //     boardDispatch({
         //         key: 'update note',
@@ -118,7 +116,7 @@ export default function NoteContainer(props: NoteContainerProps) {
                             name='content'
                             value={noteEdit.content}
                             onChange={handleInput}
-                            onKeyDown={(e) => updateNote(e)}
+                            onKeyDown={() => updateNote()}
                             fullWidth
                         />
                     )}

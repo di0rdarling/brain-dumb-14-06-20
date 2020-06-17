@@ -8,8 +8,8 @@ export default class ObjectTypeMapper {
         return ObjectTypeDisplayValue.NOTE;
       case ObjectType.TASK:
         return ObjectTypeDisplayValue.TASK;
-      case ObjectType.POST:
-        return ObjectTypeDisplayValue.POST;
+      case ObjectType.RESOURCE:
+        return ObjectTypeDisplayValue.RESOURCE;
     }
   }
 }

@@ -2,11 +2,10 @@ import React, { useEffect, ReactNode } from "react";
 import { getBoard } from "../integration/boardStore";
 import { Board } from "../domain/board";
 import { Task } from "../domain/objects/subObjects/task/task";
-import { Post } from "../domain/objects/subObjects/post";
+import { Resource } from "../domain/objects/subObjects/resource";
 import { Note } from "../domain/objects/subObjects/note";
 import { ObjectType } from "../domain/objects/subObjects/objectType";
 import { Tag } from "../domain/objects/tag";
-import TaskContainer from "../components/tasks/taskContainer";
 
 type BoardState = Board;
 
@@ -94,9 +93,9 @@ function createObject(board: Board, objectType: ObjectType, object: any) {
     case ObjectType.NOTE:
       let boardTasks: Note[] = [...board.notes, object]
       return { ...board, notes: boardTasks }
-    case ObjectType.POST:
-      let boardPosts: Post[] = [...board.posts, object]
-      return { ...board, posts: boardPosts }
+    case ObjectType.RESOURCE:
+      let boardResources: Resource[] = [...board.resources, object]
+      return { ...board, resources: boardResources }
   }
 }
 
@@ -112,13 +111,13 @@ function addTagToObject(board: Board, objectType: ObjectType, objectId: number, 
         }
       })
       break;
-    case ObjectType.POST:
-      board.posts.map(post => {
-        if (post.id === objectId) {
-          post.tags ?
-            post.tags = [...post.tags, tag]
+    case ObjectType.RESOURCE:
+      board.resources.map(resource => {
+        if (resource.id === objectId) {
+          resource.tags ?
+            resource.tags = [...resource.tags, tag]
             :
-            post.tags = [tag];
+            resource.tags = [tag];
         }
       })
       break;
@@ -137,11 +136,4 @@ function addTagToObject(board: Board, objectType: ObjectType, objectId: number, 
 
   return { ...board }
 
-}
-
-function updateNote(board: Board, editedNote: Note) {
-  let index = board.notes.findIndex(note => note.id === editedNote.id)
-  board.notes.splice(index, 1);
-  board.notes.push(editedNote);
-  return board;
 }

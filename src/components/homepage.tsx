@@ -7,7 +7,7 @@ import {
   Typography
 } from "@material-ui/core";
 import TaskListContainer from "./tasks/taskListContainer";
-import PostListContainer from "./postListContainer";
+import ResourceListContainer from "./resources/resourcesListContainer";
 import NotesListContainer from "./notes/notesListContainer";
 import {
   useBoardState,
@@ -68,7 +68,7 @@ export default function Homepage() {
             <NotesListContainer />
           </Box>
           <Box className={classes.objectListContainer}>
-            <PostListContainer />
+            <ResourceListContainer />
           </Box>
         </Box>
       </Box>

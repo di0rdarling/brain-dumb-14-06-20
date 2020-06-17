@@ -1,5 +1,5 @@
 export enum ObjectTypeDisplayValue {
-  POST = "Post",
+  RESOURCE = "Resource",
   NOTE = "Note",
   TASK = "Task"
 }

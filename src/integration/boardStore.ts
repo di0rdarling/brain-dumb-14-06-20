@@ -49,18 +49,18 @@ export function getBoard(): Board {
         }
       ],
     }],
-    posts: [{
+    resources: [{
       id: 1,
       createdAuthor: faker.name.findName(),
       createdDateTime: faker.date.past(),
       content: faker.lorem.sentence(),
-      postTitle: faker.lorem.word(),
+      resourceTitle: faker.lorem.word(),
     }, {
       id: 2,
       createdAuthor: faker.name.findName(),
       createdDateTime: faker.date.past(),
       content: faker.lorem.sentence(),
-      postTitle: faker.lorem.word(),
+      resourceTitle: faker.lorem.word(),
     }]
   };
 

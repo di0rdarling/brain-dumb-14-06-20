@@ -35,7 +35,7 @@ export default function TaskListContainer() {
       id: 3,
       createdAuthor: 'test created author',
       createdDateTime: new Date().toISOString(),
-      content: 'this is created task content.'
+      content: newTask
     }
     boardDispatch({
       key: 'create object',
