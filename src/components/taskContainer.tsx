@@ -1,16 +1,17 @@
 import React from "react";
-import { Task } from "../../domain/objects/subObjects/task/task"
+import { Task } from "../domain/objects/subObjects/task/task"
 import { Box, Typography, makeStyles } from "@material-ui/core";
-import { convertToReadableDateTime } from '../../utils/dateTimeUtils';
-import TagContainer from '../common/tagContainer'
-import { ObjectType } from "../../domain/objects/subObjects/objectType";
+import { convertToReadableDateTime } from '../utils/dateTimeUtils';
+import TagContainer from './common/tagContainer'
+import { ObjectType } from "../domain/objects/subObjects/objectType";
 
 const useStyles = makeStyles({
     root: {
         margin: '16px 0px',
         borderTop: 'solid #7FD14D',
         border: 'solid thin #9BA7AB',
-        padding: '8px 16px'
+        padding: '8px 16px',
+        borderRadius: '5px'
     },
 
 })
@@ -23,7 +24,6 @@ export default function TaskContainer(props: TaskContainerProps) {
 
     let classes = useStyles();
     let { task } = props;
-
 
 
     return (

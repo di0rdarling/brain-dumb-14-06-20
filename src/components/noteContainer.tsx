@@ -4,9 +4,9 @@ import LinkIcon from '@material-ui/icons/Link';
 import CloseIcon from '@material-ui/icons/Close';
 import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Create';
-import { Note } from "../../domain/objects/subObjects/note";
-import { convertToReadableDateTime } from '../../utils/dateTimeUtils';
-import Tag from "../common/tag";
+import { Note } from "../domain/objects/subObjects/note";
+import { convertToReadableDateTime } from '../utils/dateTimeUtils';
+import Tag from "./common/tag";
 
 const useStyles = makeStyles({
     root: {
@@ -34,20 +34,6 @@ const useStyles = makeStyles({
     footerButtonContainer: {
         margin: '8px 8px 8px 0px'
     },
-    tagContainer: {
-        backgroundColor: '#06D6A0',
-        borderRadius: 20,
-        color: 'white',
-        justifyContent: 'center',
-        textAlign: 'center',
-        display: 'flex',
-        padding: '0px 8px',
-        margin: '11px 8px 0px 8px'
-    },
-    tagIcon: {
-        fontSize: 15,
-        margin: '5px 5px 5px 0px'
-    }
 })
 
 interface NoteContainerState {

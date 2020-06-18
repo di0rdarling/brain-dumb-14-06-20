@@ -6,20 +6,25 @@ import {
   Button,
   Typography
 } from "@material-ui/core";
-import TaskListContainer from "./tasks/taskListContainer";
-import ResourceListContainer from "./resources/resourcesListContainer";
-import NotesListContainer from "./notes/notesListContainer";
 import {
   useBoardState,
   useBoardDispatch,
   BoardDispatch
 } from "../context/boardContext";
 import { Board } from "../domain/board";
+import ObjectListContainer from './common/objectListContainer';
+import { ObjectType } from "../domain/objects/subObjects/objectType";
 
 const useStyles = makeStyles({
+  root: {
+    backgroundColor: '#5E6472',
+    height: '100vh'
+  },
   boardHeader: {
     textAlign: 'center',
-    margin: '16px 0px'
+    margin: '16px 0px',
+    color: 'white',
+    padding: '16px 0px 56px 0px'
   },
   objectsWrapper: {
     display: 'flex',
@@ -51,24 +56,20 @@ export default function Homepage() {
 
   if (board.boardName) {
     return (
-      <Box>
+      <Box className={classes.root}>
         <Box className={classes.boardHeader}>
           <Typography variant='h2'>{board.boardName}</Typography>
           <Typography>Created by {board.boardCreatedByUser}</Typography>
         </Box>
-        <TextField
-          onChange={handleBoardNameInputChange}
-        />
-        <Button onClick={() => updateName()}>UPDATE NAME</Button>
         <Box className={classes.objectsWrapper}>
           <Box className={classes.objectListContainer}>
-            <TaskListContainer />
+            <ObjectListContainer objectType={ObjectType.TASK} />
           </Box>
           <Box className={classes.objectListContainer}>
-            <NotesListContainer />
+            <ObjectListContainer objectType={ObjectType.NOTE} />
           </Box>
           <Box className={classes.objectListContainer}>
-            <ResourceListContainer />
+            <ObjectListContainer objectType={ObjectType.RESOURCE} />
           </Box>
         </Box>
       </Box>
